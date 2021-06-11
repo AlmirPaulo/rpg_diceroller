@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+	<title>RPG Diceroller</title>
+</head>
+<body>
+	<main class="container">
+			<!--Imagem-->
+			<form action="{{ url_for('control.index', _external=True) }}" method="POST">
+				<input class="form-control" type="text" placeholder='Enter here a title for your room'>
+				<input class="form-control mt-1" type="password" placeholder='Enter here a password for your room'>
+				<br>
+				<button class="btn btn-success btn-lg">Create!</button>
+			</form>
+		</main>
+</body>
+</html>
