@@ -5,3 +5,9 @@ def index():
    
 def room():
     return render_template('room.html')
+
+def systems():
+    return render_template('systems.html')
+
+def about():
+    return render_template('about.html')
