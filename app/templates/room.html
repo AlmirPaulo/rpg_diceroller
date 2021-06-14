@@ -2,23 +2,23 @@
 
 {% block body %}
 <div class="container">
-	<form action="{{ url_for('control.room') }}" method="POST">
 		<div class="row mt-3">
-		<div class="col-sm-5">
+		<div class="col-sm-4">
 		<input class="form-control" type="text" id='player' placeholder='Player or Character' required>
 		</div>
-		<div class="col-sm-5">
+		<div class="col-sm-4">
 		<input class="form-control" type="text" id='action' placeholder='Action' required>
 		</div>
 		<div class="col-sm">
 			<select id="dice-pile" name="">
-		{% for n in range(100) %}
+		{% for n in range(1,101) %}
 		<option value="{{ n }}">{{ n }}</option>
 		{% endfor %}
 			</select>
 		</div>
 		<div class="col-sm">
-		<select id="dices" name="dices">
+		<select id="dice" name="dice">
+			<option value="d3">d3</option>
 			<option value="d4">d4</option>
 			<option value="d6">d6</option>
 			<option value="d8">d8</option>
@@ -28,21 +28,28 @@
 			<option value="d100">d100</option>
 		</select>
 		</div>
+		<div class="col-sm">
+			<select id="mod" name="">
+		{% for n in range(-9, 10) %}
+			<option value="{{ n }}">{{ n }}</option>
+		{% endfor %}
+			</select>
 		</div>
-		<button class="mt-3 btn btn-success btn-lg" id='btn'>Roll!</button>
-	</form>
+		<div class="col-sm">
+			<button class="btn btn-success" id='btn'>Roll!</button>
+		</div>
+		</div>
 	<div class="row mt-2">
 		<div class="col">
+		<div class="container mt-4" style='height:100px; width:70% ; overflow-y:scroll; border: solid 2px #000;' id='card'>
 			<h1>Rolls</h1>
-		<div class="card" style='height:15%; overflow-y:scroll;'>
-			<div class="card-body">
-				<!--Rolagens
-				<p class=".card-text"></p>-->
-			</div>
+				<p>
+				Scroll down to see your results
+				</p>
 		</div>
 		</div>
 	</div>
 </div>
-	<script type="text/python" scr="{{ url_for('static', filename='diceroller.py') }}">
+	<script type="text/python" src="{{ url_for('static', filename='diceroller.py') }}">
 	</script>
 {% endblock %}
