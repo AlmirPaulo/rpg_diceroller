@@ -3,11 +3,17 @@ import random, time
 
 #button to trigger diceroller
 btn = document['btn']
+out = document['out']
+
+#Setting Local Storage 
+storage = local_storage.storage
+
+#Setting Websocket 
+socket = window.io.connect('127.0.0.1:5000/room', {'transports': ["websocket"]}) #lembrar de mudar o host quando fizer deploy
 
 # Diceroller
 def diceroller(ev):
 #Variables
-    out = document['out']
     player = document['player'].value
     action = document['action'].value
     dice_pile = document['dice-pile'].value 
@@ -16,11 +22,7 @@ def diceroller(ev):
     dice_pile_msg = dice_pile
     results = []
     total = 0
-
-  #Websocket stuff
-    socket = window.io.connect('127.0.0.1:5000', {'transports': ["websocket"]}) #lembrar de mudar o host quando fizer deploy
-    
-
+    salt = str(random.randint(10000, 99999)) #for the local storage
 
   # rolling the dices
     while int(dice_pile) > 0:
@@ -67,9 +69,16 @@ def diceroller(ev):
     
     output = f"{date} - {player} tried to {action} and rolled {dice_pile_msg}{dice} + {mod}. Results: {', '.join(roll)}. Total= {total}."
         
+   #local storage log
+    storage['roll_log'+salt] = output
+
     #parsing output to HTML
     output_html = html.P(output)
-    out.insertAdjacentElement('afterbegin',output_html)    
+    socket.on('broadcast', out.insertAdjacentElement('afterbegin',output_html))    
 
 #Event Listener
 btn.bind('click', diceroller)
+
+#print the roll log
+for i in storage.values():
+    out <= html.P(i)
