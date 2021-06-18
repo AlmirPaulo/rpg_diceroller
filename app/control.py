@@ -18,3 +18,7 @@ def systems():
 @control.route('/about')
 def about():
     return views.about()
+
+@control.route('/contact')
+def contact():
+    return views.contact()

@@ -1,20 +1,27 @@
-from browser import document, html, websocket
+from browser import document, html, window, local_storage
 import random, time
 
+#button to trigger diceroller
 btn = document['btn']
 
 # Diceroller
 def diceroller(ev):
 #Variables
-    card = document['card']
+    out = document['out']
     player = document['player'].value
     action = document['action'].value
     dice_pile = document['dice-pile'].value 
     dice = document['dice'].value
+    mod = document['mod'].value
     dice_pile_msg = dice_pile
     results = []
     total = 0
-    mod = document['mod'].value
+
+  #Websocket stuff
+    socket = window.io.connect('127.0.0.1:5000', {'transports': ["websocket"]}) #lembrar de mudar o host quando fizer deploy
+    
+
+
   # rolling the dices
     while int(dice_pile) > 0:
         if dice == 'd3':
@@ -43,7 +50,8 @@ def diceroller(ev):
 
 
         dice_pile = int(dice_pile) -1
-
+    
+    #Roll sum, with modifier
     for n in results:
         total = total +n
 
@@ -51,15 +59,17 @@ def diceroller(ev):
 
     roll = []
 
+    #Parsing back to string and formatting
     for i in results:
         roll.append(str(i))
     
     date = time.asctime()
     
-    output = f"{date} - {player} tried to {action} and rolled {dice_pile_msg}{dice} + {mod}. Result: {', '.join(roll)}. Modifier= {mod} Total= {total}."
+    output = f"{date} - {player} tried to {action} and rolled {dice_pile_msg}{dice} + {mod}. Results: {', '.join(roll)}. Total= {total}."
         
     #parsing output to HTML
-    output_html = html.P(output, Class='card-text')
-    card <= output_html    
+    output_html = html.P(output)
+    out.insertAdjacentElement('afterbegin',output_html)    
 
+#Event Listener
 btn.bind('click', diceroller)

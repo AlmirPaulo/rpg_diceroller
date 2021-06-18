@@ -11,3 +11,6 @@ def systems():
 
 def about():
     return render_template('about.html')
+ 
+def contact():
+    return render_template('contact.html')

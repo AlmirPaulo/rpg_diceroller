@@ -7,12 +7,13 @@
 <script src="{{ url_for('static', filename='Brython-3.9.3/brython.js') }}"></script>
 <script src="{{ url_for('static', filename='Brython-3.9.3/brython_stdlib.js') }}"></script>
 <link rel="icon" href="{{url_for('static', filename='icosahedron.svg')}}">
+
 	<title>RPG Diceroller</title>
 </head>
 <body onload="brython()">
 	<header>
 		<nav class="navbar navbar-expand-sm navbar-light bg-light">
-			<a class="navbar-brand" href="{{ url_for('control.index') }}">Roll My Dices</a>
+			<a class="navbar-brand" href="{{ url_for('control.index') }}">RPG diceroller</a>
 			<div class="collapse navbar-collapse">
 				<ul class='navbar-nav ml-auto'>
 					<li class='nav-item'>
@@ -23,6 +24,9 @@
 					</li>
 					<li class='nav-item'>
 						<a class="nav-link" href="{{ url_for('control.systems') }}">RPG Systems</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ url_for('control.contact') }}">Contact</a>
 					</li>
 					<li class='nav-item'>
 						<a class="nav-link" href="{{ 'https://github.com/AlmirPaulo/rpg_diceroller' }}" target='_blank'><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="auto" fill="#000" class="bi bi-github" viewBox="0 0 16 16">

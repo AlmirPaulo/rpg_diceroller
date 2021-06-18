@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+ 
+
 {% block body %}
 <div class="container">
 		<div class="row mt-3">
@@ -39,17 +41,15 @@
 			<button class="btn btn-success" id='btn'>Roll!</button>
 		</div>
 		</div>
+			<h1>Rolls</h1>
 	<div class="row mt-2">
 		<div class="col">
-		<div class="container mt-4" style='height:100px; width:70% ; overflow-y:scroll; border: solid 2px #000;' id='card'>
-			<h1>Rolls</h1>
-				<p>
-				Scroll down to see your results
-				</p>
+		<div class="container mt-4"  id='out'>
 		</div>
 		</div>
 	</div>
 </div>
+<script src={{ url_for('static', filename='socketio.min.js') }}></script>
 	<script type="text/python" src="{{ url_for('static', filename='diceroller.py') }}">
 	</script>
 {% endblock %}

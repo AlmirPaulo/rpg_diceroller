@@ -15,7 +15,9 @@ It's all free. But you can donate any amount, anytime you want. Or just deactiva
 And of course, if you are a programmer you can pull request me anytime you want! 
 
 ## I found a bug!
-Please, open an Issue.
+The better way to report is to open an issue here on the repo. But you can also send me an email through the website with the subject *Bug*. 
 
-## Credits
+## Thanks and Credits
 For the Fav Icon: Icons made by <a href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+
+For the code idea on how to handle websockets with Flask and Brython, thanks to **Nxte** from Brython Google Groups: https://groups.google.com/g/brython/c/GIHxh6DSCVQ/m/1eLxCuRuBAAJ 
