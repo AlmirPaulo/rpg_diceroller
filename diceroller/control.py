@@ -4,7 +4,7 @@ import random
 
 control = Blueprint('control', __name__)
 
-@socket.on('roll')
+@socket.route('/room') #Trabalhar aqui!
 def diceroller(data):
     #variables
     player = data['player']

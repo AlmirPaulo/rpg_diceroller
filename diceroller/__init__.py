@@ -1,8 +1,8 @@
 from flask import Flask
-from flask_socketio import SocketIO
+from flask_sock import Sock
 
 app = Flask(__name__)
-socket = SocketIO()
+socket = Sock()
 
 
 #Factory

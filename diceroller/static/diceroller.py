@@ -9,7 +9,10 @@ out = document['out']
 storage = local_storage.storage
 
 #Setting Websocket 
-socket = window.io.connect('localhost:5000/room', {'transports': ["websocket"]}) #Remember change host when deploy
+conn  = window.io.connect('http://localhost:5000')
+conn.io.uri = 'ws://localhost:5000/room'
+conn.io._reconnectionDelayMax = '1000'
+socket = conn.io
 
 # Diceroller
 def diceroller(ev):
@@ -45,8 +48,7 @@ for i in storage.values():
     out <= html.P(i)
 
 #Firefox Issue
-def close_socket(ev):
-    socket.close()
-
-window.addEventListener('beforeunload', close_socket)
+# def close_socket(ev):
+#     conn.close()
+# window.addEventListener('beforeunload', close_socket)
 
