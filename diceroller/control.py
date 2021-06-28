@@ -17,9 +17,9 @@ def diceroller(data):
     dice = data['dice']
     mod = data['mod']
     date = data['date']
-    total = data['total']
-    results = data['results']
-
+    results = []   
+    total = 0
+    
     #rolling dices
     while int(dice_pile) > 0:
         if dice == 'd3':

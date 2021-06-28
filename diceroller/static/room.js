@@ -1,37 +1,53 @@
 // Variables
-
 const btn = document.getElementById('btn');
 const out = document.getElementById('out');
-// const storage = ...
+const storage = localStorage;
+const socket = io({transports:['websocket']});
 
-// Setting Websocket
-const socket = io.connect('localhost:8000/room', {'transports': ["websocket"]}); //Remember change host when dep
-
-
-// Data to dice roller
+//Send data to dice roller
 function roll () {
-    const player = document.getElementById('player').value
-    const action = document.getElementById('action').value
-    const dice_pile = document.getElementById('dice-pile').value
-    const dice = document.getElementById('dice').value
-    const mod = document.getElementById('mod').value
-    const date = new Date().toString()
+    const player = document.getElementById('player').value;
+    const action = document.getElementById('action').value;
+    const dice_pile = document.getElementById('dice-pile').value;
+    const dice = document.getElementById('dice').value;
+    const mod = document.getElementById('mod').value;
+    const date = new Date().toString();
 
     const data = {"player":player, "action":action, "dice_pile":dice_pile, "dice":dice,"mod":mod,"date":date}
-   console.log(data) 
     socket.emit('roll', data)
-    console.log('data sent')
-    
-
 };
 
 btn.addEventListener('click', roll)
 
+
 socket.on('result', (output) =>{
-   console.log(output); 
+    //Insert a roll log in local storage
+    const salt = Math.random().toString();
+    storage.setItem('roll_log_'+salt, output);
+
+    //Show roll results on the page
+    const roll_result = document.createElement('p');
+    const roll_result_text = document.createTextNode(output);
+    roll_result.appendChild(roll_result_text);
+
+    out.insertAdjacentElement('afterbegin',roll_result)    
 
 });
 
+//Bug handle for Firefox
 function close_ws(){ socket.close()};
     
-window.addEventListener("beforeunload", close_ws)
+window.addEventListener("beforeunload", close_ws);
+
+
+//Print the whole log of rolls
+    //Precisa arrumar, esta devolvendo tudo bagunçado
+for (let k in storage){
+    //Show roll results on the page
+    if(k.includes('roll_log')){
+    let roll_result = document.createElement('p');
+    let roll_result_text = document.createTextNode(`${storage[k]}`);
+    roll_result.appendChild(roll_result_text);
+    out.insertAdjacentElement('afterbegin',roll_result) 
+    };
+};
