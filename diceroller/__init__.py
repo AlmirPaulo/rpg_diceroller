@@ -9,9 +9,10 @@ socket = SocketIO()
 #Factory
 def create_app():
     #imports
-    from . import views, control
-    from .control import control
-    
+    from . import views, room
+    from .room import room_bp 
+    from .views import views 
+
     #configurations
     app.config['SECRET_KEY'] = '...'
     
@@ -19,6 +20,7 @@ def create_app():
     socket.init_app(app)
 
     #register Blueprints
-    app.register_blueprint(control, url_prefix='/') 
+    app.register_blueprint(room_bp, url_prefix='/') 
+    app.register_blueprint(views, url_prefix='/') 
 
     return app

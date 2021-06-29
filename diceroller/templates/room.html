@@ -46,6 +46,6 @@
 		</div>
 	</div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.min.js"></script>
+<script src={{ url_for('static', filename='socketio.min.js') }}></script>
 <script src={{ url_for('static', filename='room.js') }}></script>
 {% endblock %}

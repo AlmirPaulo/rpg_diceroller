@@ -1,14 +1,12 @@
 from flask import Blueprint
 from . import views, socket
-import random, logging
+import random
 
-control = Blueprint('control', __name__)
+room_bp = Blueprint('room', __name__)
 
-logging.basicConfig(level=logging.DEBUG)
 
 @socket.on('roll')
 def diceroller(data):
-    logging.debug("FUNCTION WORKING, DATA RECEIVED!!!")
     #variables
     player = data['player']
     action = data['action']
@@ -62,25 +60,10 @@ def diceroller(data):
         roll.append(str(i))
      
     output = f"{date} - {player} tried to {action} and rolled {dice_pile_msg}{dice} + {mod}. Results: {', '.join(roll)}. Total= {total}."
-    socket.emit('result',output)
+    socket.emit('result',output, broadcast=True)
 
-@control.route('/', methods=['GET', 'POST'])
-def index():
-    return views.index()
 
-@control.route('/room')
+
+@room_bp.route('/room')
 def room():
-  # rolling the dices
     return views.room()
-
-@control.route('/systems')
-def systems():
-    return views.systems()
-
-@control.route('/about')
-def about():
-    return views.about()
-
-@control.route('/contact')
-def contact():
-    return views.contact()
