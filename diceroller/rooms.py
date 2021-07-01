@@ -1,9 +1,34 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from . import views, socket
-import random
+import random, logging
 
 room_bp = Blueprint('room', __name__)
 
+logging.basicConfig(level=logging.DEBUG)
+
+
+@room_bp.route('/room')
+def room():
+    return views.room()
+
+@room_bp.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        #Variables
+        title = request.form.get('title')
+        passwd = request.form.get('passed')
+        enter_btn = request.form.get('enter')
+        create_btn = request.form.get('create')
+        if create_btn:
+            #Hash Password and save data
+            #Then, Join room
+            logging.debug('Create working!!!!')
+        elif enter_btn:
+            #Join room socket io
+            logging.debug('Enter Working!!!')
+
+
+    return views.index()
 
 @socket.on('roll')
 def diceroller(data):
@@ -64,6 +89,5 @@ def diceroller(data):
 
 
 
-@room_bp.route('/room')
-def room():
-    return views.room()
+
+

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block body %}
 	<main class="container">
-			<form action="{{ url_for('views.index', _external=True) }}" class="container" method="POST">
+			<form action="{{ url_for('room.index', _external=True) }}" class="container" method="POST">
 				<div class="row">
 					<div class="col">
 		<center>
@@ -16,8 +16,8 @@
 					<div class="col">
 				<input class="form-control" type="password" name="passwd"  placeholder="Enter the room's password" required>
 					</div>
-							<button class=" mt-3 btn btn-success btn-lg">Create room!</button>
-						<button class="mt-2 btn btn-primary btn-lg">Enter room!</button>
+							<button class=" mt-3 btn btn-success btn-lg" name='create' value='create'>Create room!</button>
+						<button class="mt-2 btn btn-primary btn-lg" name='enter' value='enter'>Enter room!</button>
 					</div>
 			</form>
 		</main>

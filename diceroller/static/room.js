@@ -22,8 +22,8 @@ btn.addEventListener('click', roll)
 
 socket.on('result', (output) =>{
     //Insert a roll log in local storage
-    const salt = Math.random().toString();
-    storage.setItem('roll_log_'+salt, output);
+    // const salt = Math.random().toString();
+    // storage.setItem('roll_log_'+salt, output);
 
     //Show roll results on the page
     const roll_result = document.createElement('p');
@@ -39,15 +39,31 @@ function close_ws(){ socket.close()};
     
 window.addEventListener("beforeunload", close_ws);
 
+//Could not solve this bug
+////Sort Logs
+//function order_logs(){
+//    let final_logs = []
+//    let logs = [];
+//    for (let k in storage){
+//        if(k.includes('roll_log')){
+//            const log_string = [`${storage[k]}`]
+//            final_logs = logs.concat(log_string)
 
-//Print the whole log of rolls
-    //Precisa arrumar, esta devolvendo tudo bagunçado
-for (let k in storage){
-    //Show roll results on the page
-    if(k.includes('roll_log')){
-    let roll_result = document.createElement('p');
-    let roll_result_text = document.createTextNode(`${storage[k]}`);
-    roll_result.appendChild(roll_result_text);
-    out.insertAdjacentElement('afterbegin',roll_result) 
-    };
-};
+//        }
+//    }
+//return final_logs.sort()
+//};
+
+////Parse to HTML
+//function print(){
+//    for(i in order_logs()){
+//       const roll_result = document.createElement('p');
+//       const roll_result_text = document.createTextNode(i);
+//       roll_result.appendChild(roll_result_text);
+//       out.appendChild(roll_result);
+//    };
+   
+//};
+
+
+//window.addEventListener('onload', print())

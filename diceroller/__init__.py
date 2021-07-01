@@ -9,8 +9,8 @@ socket = SocketIO()
 #Factory
 def create_app():
     #imports
-    from . import views, room
-    from .room import room_bp 
+    from . import views, rooms
+    from .rooms import room_bp 
     from .views import views 
 
     #configurations
