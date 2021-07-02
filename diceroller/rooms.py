@@ -19,13 +19,15 @@ def index():
         passwd = request.form.get('passed')
         enter_btn = request.form.get('enter')
         create_btn = request.form.get('create')
-        if create_btn:
+        if create_btn == 'create':
             #Hash Password and save data
             #Then, Join room
             logging.debug('Create working!!!!')
-        elif enter_btn:
+            logging.debug(create_btn)
+        elif enter_btn == 'enter':
             #Join room socket io
             logging.debug('Enter Working!!!')
+            logging.debug(enter_btn)
 
 
     return views.index()
