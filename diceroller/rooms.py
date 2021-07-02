@@ -1,4 +1,5 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, flash
+from flask_socketio import join_room
 from . import views, socket
 import random, logging
 
@@ -12,22 +13,35 @@ def room():
     return views.room()
 
 @room_bp.route('/', methods=['GET', 'POST'])
+@socket.on('join')
 def index():
     if request.method == 'POST':
         #Variables
+        global room
         title = request.form.get('title')
         passwd = request.form.get('passed')
         enter_btn = request.form.get('enter')
         create_btn = request.form.get('create')
         if create_btn == 'create':
-            #Hash Password and save data
-            #Then, Join room
-            logging.debug('Create working!!!!')
-            logging.debug(create_btn)
-        elif enter_btn == 'enter':
+            if data['passwd'] > 12:
+                flash('Your password is too long. Maximum 12 characters.')
+            elif data['passwd'] < 8:
+                flash('Your password is too short. Minimum 8 characters.')
+            else:
+                #hash password and save data in DB
+                #Then, Join room
+                logging.debug('Create working!!!!')
+                logging.debug(create_btn)
+                room = data['room']
+                #redirect
+                join_room(room)            
+        elif enter_btn == 'enter': #and data['password'] == ...
             #Join room socket io
             logging.debug('Enter Working!!!')
             logging.debug(enter_btn)
+            room = data['room']
+            #redirect
+            join_room(room)            
 
 
     return views.index()
@@ -35,6 +49,7 @@ def index():
 @socket.on('roll')
 def diceroller(data):
     #variables
+    global room
     player = data['player']
     action = data['action']
     dice_pile = data['dice_pile']
@@ -87,7 +102,7 @@ def diceroller(data):
         roll.append(str(i))
      
     output = f"{date} - {player} tried to {action} and rolled {dice_pile_msg}{dice} + {mod}. Results: {', '.join(roll)}. Total= {total}."
-    socket.emit('result',output, broadcast=True)
+    socket.emit('result',output, to=room)
 
 
 
